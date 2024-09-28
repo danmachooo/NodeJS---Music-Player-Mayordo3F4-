@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Audio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .audio-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+        .lyrics {
+            background-color: #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            white-space: pre-wrap; /* Allows wrapping of lyrics */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Music Player</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/albums">Albums</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/upload">Upload New Audio</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="audio-container">
+            <h1 class="text-center">Now Playing: <%= audio.title %></h1>
+            <p class="text-center"><strong>Artist:</strong> <%= audio.artist %></p>
+            <audio controls class="w-100 mt-4">
+                <source src="/uploads/audios/<%= audio.file_path %>" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+
+            <h2 class="mt-4">Lyrics</h2>
+            <pre class="lyrics">
+                <%= audio.lyrics %>
+            </pre>
+
+            <div class="text-center mt-4">
+                <a href="/" class="btn btn-secondary">Back to Audio List</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Debugging output
+        console.log("Audio file path: /uploads/audios/<%= audio.file_path %>");
+    </script>
+</body>
+</html>

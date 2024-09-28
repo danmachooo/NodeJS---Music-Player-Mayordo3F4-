@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio List</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow">
+        <div class="max-w-6xl mx-auto px-4 py-4">
+            <a class="text-green-500 font-bold text-xl" href="/">Music Player</a>
+            <div class="mt-4">
+                <a href="/albums" class="text-gray-700">Albums</a>
+                <a href="/upload" class="ml-4 text-gray-700">Upload New Audio</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container mx-auto mt-8">
+        <h1 class="text-center text-3xl font-bold">All Audios</h1>
+        <div class="text-right mb-3">
+            <a href="/upload" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Upload New Audio</a>
+        </div>
+        <div class="list-group">
+            <% if (audios && audios.length > 0) { %>
+                <% audios.forEach(audio => { %>
+                    <a href="/play/<%= audio.id %>" class="block border-b p-4 hover:bg-gray-200">
+                        <h5 class="mb-1 font-bold"><%= audio.title %></h5>
+                        <p class="mb-1 text-gray-600">by <%= audio.artist %></p>
+                    </a>
+                <% }) %>
+            <% } else { %>
+                <p class="text-center text-gray-600">No audios available.</p>
+            <% } %>
+            
+        </div>
+    </div>
+</body>
+</html>

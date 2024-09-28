@@ -1,4 +1,3 @@
-const { query } = require('express');
 const mysql = require('mysql2/promise');
 
 const dbConfig = {
@@ -8,20 +7,20 @@ const dbConfig = {
 };
 
 const dbName = 'MayordoAudioAppDB';
+const pool = mysql.createPool(dbConfig);
 
 const init_db = async () => {
     try {
-        const connection = await mysql.createConnection(dbConfig);
+        const connection = await pool.getConnection();
         console.log('Connected to MySQL server.');
 
         const [databases] = await connection.query('SHOW DATABASES LIKE ?', [dbName]);
 
         if(databases.length === 0) {
-            console.log(`Databases ${dbName} doesn't exist. Creating...`);
+            console.log(`Database ${dbName} doesn't exist. Creating...`);
             await connection.query(`CREATE DATABASE ${dbName}`);
-            console.log(`Database ${dbName} has been created!`) 
-        } 
-        else {
+            console.log(`Database ${dbName} has been created!`);
+        } else {
             console.log(`Database ${dbName} already exists!`);
         }
 
@@ -31,8 +30,7 @@ const init_db = async () => {
             CREATE TABLE IF NOT EXISTS audios (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 title VARCHAR(255) NOT NULL,
-                artist VARCHAR(255) NOT NULL,  -- Added artist
-                duration INT NOT NULL,          -- Added duration (in seconds)
+                artist VARCHAR(255) NOT NULL,
                 file_path VARCHAR(255) NOT NULL,
                 lyrics TEXT
             );
@@ -42,7 +40,9 @@ const init_db = async () => {
             CREATE TABLE IF NOT EXISTS albums (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 title VARCHAR(255) NOT NULL,
-                artist VARCHAR(255) NOT NULL
+                cover_image VARCHAR(255) NOT NULL,
+                artist VARCHAR(255) NOT NULL,
+                released_date DATE
             );
         `;
         
@@ -54,10 +54,9 @@ const init_db = async () => {
         `;
         
         const createAudioAlbumTableQuery = `
-            CREATE TABLE IF NOT EXISTS audio_album (
+            CREATE TABLE IF NOT EXISTS album_audio (
                 audio_id INT,
                 album_id INT,
-                PRIMARY KEY (audio_id, album_id),
                 FOREIGN KEY (audio_id) REFERENCES audios(id) ON DELETE CASCADE,
                 FOREIGN KEY (album_id) REFERENCES albums(id) ON DELETE CASCADE
             );
@@ -72,21 +71,21 @@ const init_db = async () => {
                 FOREIGN KEY (playlist_id) REFERENCES playlist(id) ON DELETE CASCADE
             );
         `;
+
         await connection.query(createAudiosTableQuery);
         await connection.query(createAlbumsTableQuery);
         await connection.query(createPlaylistTableQuery);
         await connection.query(createAudioAlbumTableQuery);
         await connection.query(createAudioPlaylistTableQuery);
-        await connection.query(createAudioQueueTableQuery);
 
         console.log('All tables are ready!');
-
-        await connection.end();
+        
+        await connection.release(); // release the connection back to the pool
     } 
     catch (error) {
-        console.error('Error initializing database: ', error);
+        console.error('Error initializing database: ', error.message);
         throw error;        
     }
 };
 
-module.exports = { init_db, query };
+module.exports = { init_db, pool };

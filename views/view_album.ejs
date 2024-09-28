@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= album.title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a class="text-green-500 font-bold text-xl" href="/">Audio Manager</a>
+            <div>
+                <a href="/" class="text-gray-700 hover:text-green-500 px-3">Audios</a>
+                <a href="/albums" class="text-gray-700 hover:text-green-500 px-3">Albums</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
+        <h1 class="text-center text-3xl font-bold">Album: <%= album.title %></h1>
+        <p class="text-center text-lg"><strong>Artist:</strong> <%= album.artist %></p>
+        <p class="text-center text-lg"><strong>Released Date:</strong> <%= new Date(album.released_date).toLocaleDateString() %></p>
+        
+        <div class="text-center mb-4">
+            <img src="/<%= album.cover_image %>" alt="<%= album.title %> Cover Image" class="h-64 w-auto rounded-lg shadow-md">
+        </div>
+        
+        <h2 class="text-xl font-bold mb-2">Songs</h2>
+        <ul class="list-disc list-inside mb-4">
+            <% if (album.songs.length > 0) { %>
+                <% album.songs.forEach(song => { %>
+                    <li class="text-lg"><%= song.title %></li>
+                <% }) %>
+            <% } else { %>
+                <li class="text-lg">No songs available</li>
+            <% } %>
+        </ul>
+        
+        <div class="text-center">
+            <a href="/albums" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Back to Albums List</a>
+        </div>
+    </div>
+</body>
+</html>
