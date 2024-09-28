@@ -2,7 +2,7 @@ const db = require('../config/db');
 
 class Audio {
     static upload_audio(title, artist, duration, filePath, lyrics, callback) {
-        const query = 'INSERT INTO audios (title, artist, duration, file_path, lyrics VALUES (?, ?, ?, ?, ?)';
+        const query = 'INSERT INTO audios (title, artist, duration, file_path, lyrics) VALUES (?, ?, ?, ?, ?)';
         db.query(query, [title, artist, duration, filePath, lyrics], callback);
     }
     

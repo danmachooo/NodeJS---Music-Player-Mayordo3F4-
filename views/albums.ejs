@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album List</title>
+</head>
+<body>
+    <h1>Albums</h1>
+    <form action="/" method="POST">
+        <input type="text" name="title" placeholder="Album Title" required>
+        <input type="text" name="artist" placeholder="Artist Name" required>
+        <button type="submit">Create Album</button>
+    </form>
+    <ul>
+        <% albums.forEach(album => { %>
+            <li><%= album.title %> by <%= album.artist %></li>
+        <% }) %>
+    </ul>
+</body>
+</html>

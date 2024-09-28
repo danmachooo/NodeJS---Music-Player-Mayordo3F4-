@@ -21,8 +21,10 @@ class Playlist {
             JOIN audio_playlist ON audios.id = audio_playlist.audio_id
             WHERE audio_playlist.playlist_id = ?
         `;
-        db.query(query, [playlistId], callback);
+        db.query(query, [playlist_id], callback);
     }
+    
+    
 }
 
 module.exports = Playlist;

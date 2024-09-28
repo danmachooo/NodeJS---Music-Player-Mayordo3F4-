@@ -1,4 +1,4 @@
-const db = require('../')
+const db = require('../config/db')
 
 class Album {
     static create_album(title, artist, callback) {

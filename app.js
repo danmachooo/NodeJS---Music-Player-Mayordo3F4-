@@ -12,9 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static('public'))
 
-// app.use('/', audioRoutes);
-// app.use('/albums', albumRoutes);
-// app.use('/playlists', playlistRoutes);
+app.use('/', audioRoutes);
+app.use('/albums', albumRoutes);
+app.use('/playlists', playlistRoutes);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
