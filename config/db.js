@@ -31,7 +31,6 @@ const init_db = async () => {
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 title VARCHAR(255) NOT NULL,
                 artist VARCHAR(255) NOT NULL,
-                duration FLOAT NOT NULL,
                 file_path VARCHAR(255) NOT NULL,
                 lyrics TEXT
             );
@@ -41,8 +40,9 @@ const init_db = async () => {
             CREATE TABLE IF NOT EXISTS albums (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 title VARCHAR(255) NOT NULL,
-                cover VARCHAR(255) NOT NULL,
-                artist VARCHAR(255) NOT NULL
+                cover_image VARCHAR(255) NOT NULL,
+                artist VARCHAR(255) NOT NULL,
+                released_date DATE
             );
         `;
         
@@ -54,10 +54,9 @@ const init_db = async () => {
         `;
         
         const createAudioAlbumTableQuery = `
-            CREATE TABLE IF NOT EXISTS audio_album (
+            CREATE TABLE IF NOT EXISTS album_audio (
                 audio_id INT,
                 album_id INT,
-                PRIMARY KEY (audio_id, album_id),
                 FOREIGN KEY (audio_id) REFERENCES audios(id) ON DELETE CASCADE,
                 FOREIGN KEY (album_id) REFERENCES albums(id) ON DELETE CASCADE
             );

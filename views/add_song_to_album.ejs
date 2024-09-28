@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Song to Album</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-md mx-auto mt-16 p-6 bg-white rounded-lg shadow-lg">
+        <h1 class="text-center text-2xl font-bold mb-4">Add Song to Album</h1>
+        <form action="/albums/<%= albumId %>/addto" method="POST">
+            <input type="hidden" name="albumId" value="<%= albumId %>">
+
+            <div class="mb-4">
+                <label for="audioId" class="block text-sm font-medium text-gray-700">Select Song:</label>
+                <select name="audioId" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                    <% if (audios.length === 0) { %>
+                        <option disabled>No songs available</option>
+                    <% } else { %>
+                        <% audios.forEach(audio => { %>
+                            <option value="<%= audio.id %>"><%= audio.title %> by <%= audio.artist %></option>
+                        <% }) %>
+                    <% } %>
+                </select>
+            </div>
+            
+            <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 rounded">Add Song</button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="/albums/<%= albumId %>" class="text-blue-600">Back to Album</a>
+        </div>
+    </div>
+</body>
+</html>

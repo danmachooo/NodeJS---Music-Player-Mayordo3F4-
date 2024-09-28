@@ -6,7 +6,7 @@ module.exports = {
         Playlist.create_playlist(name, (err) => {
             if (err) {
                 console.error('Error creating playlist:', err);
-                return res.status(500).send('Internal Server Error'); // Send error response
+                return res.status(500).send('Internal Server Error'); 
             }
             res.redirect('/playlists'); // Redirect on success
         });
@@ -16,9 +16,9 @@ module.exports = {
         Playlist.getall_playlist((err, results) => {
             if (err) {
                 console.error('Error retrieving playlists:', err);
-                return res.status(500).send('Internal Server Error'); // Send error response
+                return res.status(500).send('Internal Server Error'); 
             }
-            res.render('playlists', { playlists: results }); // Render playlists
+            res.render('playlists', { playlists: results }); 
         });
     },
 
@@ -27,9 +27,9 @@ module.exports = {
         Playlist.addto_playlist(audioId, playlistId, (err) => {
             if (err) {
                 console.error('Error adding to playlist:', err);
-                return res.status(500).send('Internal Server Error'); // Send error response
+                return res.status(500).send('Internal Server Error'); 
             }
-            res.redirect('/playlists'); // Redirect on success
+            res.redirect('/playlists'); 
         });
     },
 };
