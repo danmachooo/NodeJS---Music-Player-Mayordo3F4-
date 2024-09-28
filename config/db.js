@@ -31,7 +31,7 @@ const init_db = async () => {
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 title VARCHAR(255) NOT NULL,
                 artist VARCHAR(255) NOT NULL,
-                duration INT NOT NULL,
+                duration FLOAT NOT NULL,
                 file_path VARCHAR(255) NOT NULL,
                 lyrics TEXT
             );
@@ -41,6 +41,7 @@ const init_db = async () => {
             CREATE TABLE IF NOT EXISTS albums (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 title VARCHAR(255) NOT NULL,
+                cover VARCHAR(255) NOT NULL,
                 artist VARCHAR(255) NOT NULL
             );
         `;

@@ -1,18 +1,24 @@
-const db = require('../config/db')
+const { pool } = require('../config/db'); // Adjust the path if necessary
 
 class Album {
     static create_album(title, artist, callback) {
         const query = 'INSERT INTO albums (title, artist) VALUES (?, ?)';
-        db.query(query, [title, artist], callback);
+        pool.query(query, [title, artist])
+            .then(result => callback(null, result))
+            .catch(err => callback(err));
     } 
 
     static getall_albums(callback) {
-        db.query('SELECT * FROM albums', callback);
+        pool.query('SELECT * FROM albums')
+            .then(result => callback(null, result[0])) // result[0] contains the rows
+            .catch(err => callback(err));
     }
 
     static addto_album(audioId, albumId, callback) {
         const query = 'INSERT INTO audio_album (audio_id, album_id) VALUES (?, ?)';
-        db.query(query, [audioId, albumId], callback);
+        pool.query(query, [audioId, albumId])
+            .then(result => callback(null, result))
+            .catch(err => callback(err));
     }
 
     static getaudios_in_album(album_id, callback) { 
@@ -21,7 +27,9 @@ class Album {
             JOIN audio_album ON audios.id = audio_album.audio_id
             WHERE audio_album.album_id = ?
         `;
-        db.query(query, [album_id], callback);
+        pool.query(query, [album_id])
+            .then(result => callback(null, result[0])) // result[0] contains the rows
+            .catch(err => callback(err));
     }
 }
 

@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Playing Audio</title>
+    <title>Play Audio</title>
 </head>
 <body>
-    <h1>Now Playing: <%= audio.title %></h1>
+    <h1>Playing: <%= audio.title %></h1>
     <audio controls>
-        <source src="<%= audio.file_path %>" type="audio/mpeg">
-        Your browser does not support the audio tag.
+        <source src="/uploads/<%= audio.file_path %>" type="audio/mpeg">
+        Your browser does not support the audio element.
     </audio>
-    <a href="/">Back to Audios</a>
+    <h2>Lyrics:</h2>
+    <pre><%= audio.lyrics %></pre>
+    <a href="/">Back to List</a>
 </body>
 </html>
